@@ -3,6 +3,7 @@ package br.com.caelum.fj59.carangos.activity;
 import android.os.Bundle;
 import android.app.Activity;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +11,10 @@ import java.util.List;
 import br.com.caelum.fj59.carangos.R;
 import br.com.caelum.fj59.carangos.adapter.BlogPostAdapter;
 import br.com.caelum.fj59.carangos.modelo.BlogPost;
+import br.com.caelum.fj59.carangos.tasks.BuscaMaisPostsDelegate;
 import br.com.caelum.fj59.carangos.tasks.BuscaMaisPostsTask;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements BuscaMaisPostsDelegate{
     private ListView postsList;
     private List<BlogPost> posts;
     private BlogPostAdapter adapter;
@@ -31,7 +33,8 @@ public class MainActivity extends Activity {
         new BuscaMaisPostsTask(this).execute();
     }
 
-    public void atualizaListaCom(List<BlogPost> posts) {
+    @Override
+    public void lidaComRetorno(List<BlogPost> posts) {
         this.posts.clear();
         this.posts.addAll(posts);
         this.adapter.notifyDataSetChanged();
@@ -39,5 +42,10 @@ public class MainActivity extends Activity {
 
     public List<BlogPost> getPosts() {
         return this.posts;
+    }
+
+    @Override
+    public void lidaComErro(Exception e) {
+        Toast.makeText(this, "Erro ao buscar dados", Toast.LENGTH_LONG).show();
     }
 }

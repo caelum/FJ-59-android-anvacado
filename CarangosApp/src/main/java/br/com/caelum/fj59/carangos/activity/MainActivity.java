@@ -14,37 +14,41 @@ import br.com.caelum.fj59.carangos.adapter.BlogPostAdapter;
 import br.com.caelum.fj59.carangos.app.CarangosApplication;
 import br.com.caelum.fj59.carangos.fragments.ListaDePostsFragment;
 import br.com.caelum.fj59.carangos.fragments.ProgressFragment;
+import br.com.caelum.fj59.carangos.infra.MyLog;
 import br.com.caelum.fj59.carangos.modelo.BlogPost;
 import br.com.caelum.fj59.carangos.navegacao.EstadoMainActivity;
 import br.com.caelum.fj59.carangos.tasks.BuscaMaisPostsDelegate;
 import br.com.caelum.fj59.carangos.tasks.BuscaMaisPostsTask;
 
 public class MainActivity extends Activity implements BuscaMaisPostsDelegate{
-    private List<BlogPost> posts;
     private EstadoMainActivity estado;
+    private static final String ESTADO_ATUAL = "ESTADO_ATUAL";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        this.posts = new ArrayList<BlogPost>();
-
         this.estado = EstadoMainActivity.INICIO;
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MyLog.i("EXECUTANDO ESTADO: " + this.estado);
         this.estado.executa(this);
     }
 
     @Override
     public void lidaComRetorno(List<BlogPost> posts) {
-        this.posts.clear();
-        this.posts.addAll(posts);
+        CarangosApplication application = getCarangosApplication();
+
+        application.getPosts().clear();
+        application.getPosts().addAll(posts);
 
         this.estado = EstadoMainActivity.PRIMEIROS_POSTS_RECEBIDOS;
         this.estado.executa(this);
-    }
-
-    public List<BlogPost> getPosts() {
-        return this.posts;
     }
 
     @Override
@@ -64,5 +68,21 @@ public class MainActivity extends Activity implements BuscaMaisPostsDelegate{
 
     public void buscaPrimeirosPosts() {
         new BuscaMaisPostsTask(this).execute();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        MyLog.i("SALVANDO ESTADO!");
+
+        outState.putSerializable(ESTADO_ATUAL, this.estado);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        MyLog.i("RESTAURANDO ESTADO!");
+        this.estado = (EstadoMainActivity) savedInstanceState.getSerializable(ESTADO_ATUAL);
+
     }
 }

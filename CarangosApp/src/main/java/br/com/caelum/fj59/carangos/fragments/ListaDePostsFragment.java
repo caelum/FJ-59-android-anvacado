@@ -11,6 +11,7 @@ import android.widget.ListView;
 import br.com.caelum.fj59.carangos.R;
 import br.com.caelum.fj59.carangos.activity.MainActivity;
 import br.com.caelum.fj59.carangos.adapter.BlogPostAdapter;
+import br.com.caelum.fj59.carangos.app.CarangosApplication;
 import br.com.caelum.fj59.carangos.infra.MyLog;
 import br.com.caelum.fj59.carangos.modelo.BlogPost;
 
@@ -26,8 +27,9 @@ public class ListaDePostsFragment extends Fragment {
         this.postsList = (ListView) inflater.inflate(R.layout.posts_list, container, false);
 
         final MainActivity activity = ((MainActivity)this.getActivity());
+        CarangosApplication app = activity.getCarangosApplication();
 
-        this.adapter = new BlogPostAdapter(getActivity(), activity.getPosts());
+        this.adapter = new BlogPostAdapter(getActivity(), app.getPosts());
         this.postsList.setAdapter(this.adapter);
 
         return this.postsList;

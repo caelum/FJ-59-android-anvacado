@@ -59,6 +59,7 @@ public class MainActivity extends Activity implements BuscaMaisPostsDelegate{
 
         this.estado = EstadoMainActivity.PRIMEIROS_POSTS_RECEBIDOS;
         this.estado.executa(this);
+
     }
 
     @Override

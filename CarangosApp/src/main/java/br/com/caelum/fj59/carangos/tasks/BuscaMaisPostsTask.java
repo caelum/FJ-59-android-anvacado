@@ -7,7 +7,9 @@ import android.widget.Toast;
 import java.util.List;
 
 import br.com.caelum.fj59.carangos.activity.MainActivity;
+import br.com.caelum.fj59.carangos.app.CarangosApplication;
 import br.com.caelum.fj59.carangos.converter.BlogPostConverter;
+import br.com.caelum.fj59.carangos.evento.EventoBlogPostsRecebidos;
 import br.com.caelum.fj59.carangos.infra.MyLog;
 import br.com.caelum.fj59.carangos.modelo.BlogPost;
 import br.com.caelum.fj59.carangos.webservice.Pagina;
@@ -18,12 +20,11 @@ import br.com.caelum.fj59.carangos.webservice.WebClient;
  */
 public class BuscaMaisPostsTask extends AsyncTask<Pagina, Void, List<BlogPost>> {
 
-    private BuscaMaisPostsDelegate delegate;
-    private Exception erro;
+    private CarangosApplication application;
 
-    public BuscaMaisPostsTask(BuscaMaisPostsDelegate delegate) {
-        this.delegate = delegate;
-        this.delegate.getCarangosApplication().registra(this);
+    public BuscaMaisPostsTask(CarangosApplication application) {
+        this.application = application;
+        application.registra(this);
     }
 
     @Override
@@ -37,7 +38,6 @@ public class BuscaMaisPostsTask extends AsyncTask<Pagina, Void, List<BlogPost>> 
 
             return postsRecebidos;
         } catch (Exception e) {
-            this.erro = e;
             return null;
         }
     }
@@ -47,10 +47,10 @@ public class BuscaMaisPostsTask extends AsyncTask<Pagina, Void, List<BlogPost>> 
         MyLog.i("RETORNO OBTIDO!" + retorno);
 
         if (retorno!=null) {
-            this.delegate.lidaComRetorno(retorno);
+            EventoBlogPostsRecebidos.notificaPostsRecebidos(this.application, retorno, true);
         } else {
-            this.delegate.lidaComErro(this.erro);
+            EventoBlogPostsRecebidos.notificaPostsRecebidos(this.application, retorno, false);
         }
-        this.delegate.getCarangosApplication().desregistra(this);
+        this.application.desregistra(this);
     }
 }

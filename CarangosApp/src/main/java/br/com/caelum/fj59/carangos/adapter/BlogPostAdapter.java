@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import br.com.caelum.fj59.carangos.R;
@@ -57,7 +59,11 @@ public class BlogPostAdapter extends BaseAdapter {
         mensagem.setText(blogPost.getMensagem());
         nomeAutor.setText(blogPost.getAutor().getNome());
 
-        foto.setImageDrawable(this.context.getResources().getDrawable(R.drawable.ic_car));
+        Picasso.with(this.context)
+                .load(blogPost.getFoto())
+                .placeholder(R.drawable.loading)
+                .fit()
+                .into(foto);
 
         int idImagem = 0;
         switch (blogPost.getEstadoDeHumor()) {

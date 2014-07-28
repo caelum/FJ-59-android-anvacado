@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+            android:id="@+id/leilao"
+            android:showAsAction="always"
+            android:title="Leilao"/>
+    <item
+            android:id="@+id/compras"
+            android:showAsAction="always"
+            android:title="Compras"/>
+
+    <item
+            android:id="@+id/postar"
+            android:showAsAction="always"
+            android:title="Postar"/>
+
+</menu>

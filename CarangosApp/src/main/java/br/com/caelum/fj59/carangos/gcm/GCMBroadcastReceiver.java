@@ -10,6 +10,7 @@ import android.content.Intent;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import br.com.caelum.fj59.carangos.R;
+import br.com.caelum.fj59.carangos.activity.LeilaoActivity;
 import br.com.caelum.fj59.carangos.activity.MainActivity;
 import br.com.caelum.fj59.carangos.infra.MyLog;
 
@@ -29,7 +30,7 @@ public class GCMBroadcastReceiver extends BroadcastReceiver {
 
         MyLog.i("Tipo da mensagem: " + messageType+ " Com conteúdo: " + mensagem);
 
-        Intent irParaLeilao = new Intent(context, MainActivity.class);
+        Intent irParaLeilao = new Intent(context, LeilaoActivity.class);
         PendingIntent acaoPendente = PendingIntent.getActivity(context, 0, irParaLeilao, PendingIntent.FLAG_CANCEL_CURRENT);
 
         irParaLeilao.putExtra("idDaNotificacao", Constantes.ID_NOTIFICACAO);

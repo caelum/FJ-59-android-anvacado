@@ -31,6 +31,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="br.com.caelum.fj59.carangos.activity.LeilaoActivity"
+            android:label="@string/app_name" >
+        </activity>
 
         <receiver android:name="br.com.caelum.fj59.carangos.gcm.GCMBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >

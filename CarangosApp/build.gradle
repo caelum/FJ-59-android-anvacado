@@ -22,5 +22,6 @@ android {
 dependencies {
     compile 'com.android.support:appcompat-v7:20.+'
     compile 'com.squareup.picasso:picasso:2.3.3'
+    compile 'com.google.android.gms:play-services:4.4.52'
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }

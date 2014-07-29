@@ -46,24 +46,31 @@ public class BlogPostAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup) {
+
+        ViewHolder holder;
+        int layout = position % 2 == 0 ? R.layout.post_linha_par : R.layout.post_linha_impar;
+
+        if(convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(layout, viewGroup, false);
+            holder = new ViewHolder(convertView);
+            convertView.setTag(holder);
+            MyLog.i("Criou nova linha!");
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+            MyLog.i("Aproveitou a linha!");
+        }
+
         BlogPost blogPost = (BlogPost) getItem(position);
 
-        View linha = LayoutInflater.from(context).inflate(R.layout.
-                post_linha_par, null);
 
-        ImageView foto = (ImageView) linha.findViewById(R.id.foto);
-        TextView mensagem = (TextView) linha.findViewById(R.id.mensagem);
-        TextView nomeAutor = (TextView) linha.findViewById(R.id.nome_autor);
-        ImageView emoticon = (ImageView) linha.findViewById(R.id.emoticon);
-
-        mensagem.setText(blogPost.getMensagem());
-        nomeAutor.setText(blogPost.getAutor().getNome());
+        holder.mensagem.setText(blogPost.getMensagem());
+        holder.nomeAutor.setText(blogPost.getAutor().getNome());
 
         Picasso.with(this.context)
                 .load(blogPost.getFoto())
                 .placeholder(R.drawable.loading)
                 .fit()
-                .into(foto);
+                .into(holder.foto);
 
         int idImagem = 0;
         switch (blogPost.getEstadoDeHumor()) {
@@ -72,9 +79,9 @@ public class BlogPostAdapter extends BaseAdapter {
             case TRISTE: idImagem = R.drawable.ic_indiferente; break;
         }
 
-        emoticon.setImageDrawable(this.context.getResources().getDrawable(idImagem));
+        holder.emoticon.setImageDrawable(this.context.getResources().getDrawable(idImagem));
 
-        return linha;
+        return convertView;
     }
 
     @Override

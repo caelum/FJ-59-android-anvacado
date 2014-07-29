@@ -18,12 +18,11 @@
             android:id="@+id/foto"
             android:background="#BAE3AA"
             android:layout_width="160dp"
-            android:scaleType="fitXY"
+            android:scaleType="centerInside"
             android:layout_height="120dp"
             android:adjustViewBounds="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="10dp"
+             android:layout_marginBottom="10dp"
             android:src="@drawable/ic_no_image"
             />
 

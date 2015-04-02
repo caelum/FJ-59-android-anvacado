@@ -15,50 +15,31 @@ import br.com.caelum.fj59.carangos.R;
  */
 public class ProgressFragment extends Fragment {
 
-    private static final String MESSAGE_ID = "messageId";
-    private static final String COMPLEMENTOS = "complementos";
-    private TextView mensagemTv;
-
-    public ProgressFragment() {
-    }
+    private static final String STRING_ID = "stringId";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.progress_bar, null);
+        View view = inflater.inflate(R.layout.progress_bar, container, false);
 
-        this.mensagemTv = (TextView) view.findViewById(R.id.progress_text);
+        TextView mensagemTv = (TextView) view.findViewById(R.id.progress_text);
 
-        if (getArguments()!=null && getArguments().getInt(MESSAGE_ID, -1) != -1) {
-            String[] stringsParaInterpolar = getArguments().getStringArray(COMPLEMENTOS);
-            mudaMensagem(getArguments().getInt(MESSAGE_ID), stringsParaInterpolar);
+        if(getArguments() != null) {
+            int stringId = getArguments().getInt(STRING_ID, -1);
+            String mensagem = getString(stringId);
+
+            mensagemTv.setText(mensagem);
         }
-
         return view;
     }
 
-    public void mudaMensagem(int stringId, String... complementos) {
-        String novaMensagem = getActivity().getResources().getString(stringId);
-        guardaEstadoDaMensagem(stringId, getArguments(), complementos);
-
-        novaMensagem = "";//String.format(novaMensagem, complementos);
-
-        mensagemTv.setText(novaMensagem);
-    }
-
-    public static ProgressFragment comMensagem(int stringId, String... complementos) {
+    public static ProgressFragment comMensagem(int stringId) {
         ProgressFragment fragment = new ProgressFragment();
         Bundle bundle = new Bundle();
-        guardaEstadoDaMensagem(stringId, bundle, complementos);
+        bundle.putInt(STRING_ID, stringId);
         fragment.setArguments(bundle);
 
         return fragment;
     }
-
-    private static void guardaEstadoDaMensagem(int stringId, Bundle bundle, String... complementos) {
-        bundle.putInt(MESSAGE_ID, stringId);
-        bundle.putSerializable(COMPLEMENTOS, complementos);
-    }
-
 }

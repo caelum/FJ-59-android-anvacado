@@ -16,7 +16,7 @@ import br.com.caelum.fj59.carangos.modelo.Usuario;
  */
 public class LanceConverter {
 
-    public List<Lance> toLances(String json) {
+    public List<Lance> converte(String json) {
         try {
             JSONArray js = new JSONObject(json).getJSONArray("list");
 

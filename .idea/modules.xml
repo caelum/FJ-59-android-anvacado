@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Carangos.iml" filepath="$PROJECT_DIR$/Carangos.iml" />
       <module fileurl="file://$PROJECT_DIR$/CarangosApp/CarangosApp.iml" filepath="$PROJECT_DIR$/CarangosApp/CarangosApp.iml" />
-      <module fileurl="file://$PROJECT_DIR$/CarangosProvisorio.iml" filepath="$PROJECT_DIR$/CarangosProvisorio.iml" />
     </modules>
   </component>
 </project>

@@ -20,7 +20,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.publicacao_list);
+        setContentView(R.layout.publicacoes_list);
 
         this.listView = (ListView) findViewById(R.id.publicacoes_list);
         this.publicacoes = new ArrayList<Publicacao>();

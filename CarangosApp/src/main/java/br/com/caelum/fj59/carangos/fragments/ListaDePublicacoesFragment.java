@@ -18,7 +18,7 @@ public class ListaDePublicacoesFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ListView publicacoesList = (ListView) inflater.inflate(R.layout.publicacao_list, container, false);
+        ListView publicacoesList = (ListView) inflater.inflate(R.layout.publicacoes_list, container, false);
 
         final MainActivity activity = (MainActivity) this.getActivity();
 

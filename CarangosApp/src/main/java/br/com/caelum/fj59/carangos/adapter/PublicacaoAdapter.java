@@ -53,6 +53,7 @@ public class PublicacaoAdapter extends BaseAdapter {
         TextView mensagem = (TextView) linha.findViewById(R.id.mensagem);
         TextView nomeAutor = (TextView) linha.findViewById(R.id.nome_autor);
         ImageView emoticon = (ImageView) linha.findViewById(R.id.emoticon);
+        ProgressBar progress = (ProgressBar) linha.findViewById(R.id.progress);
 
         mensagem.setText(publicacao.getMensagem());
         nomeAutor.setText(publicacao.getAutor().getNome());
